@@ -1,7 +1,6 @@
--- Find out the most/least loyal customers for future marketing use
+-- Another way to find out in which city/cities there are no rental shops
 
-SELECT c.first_name, c.last_name, c.email, COUNT(r.customer_id) AS rent_freq
-FROM customer c
-JOIN rental r ON c.customer_id = r.customer_id
-GROUP BY c.customer_id, c.first_name, c.last_name, c.email
-ORDER BY rent_freq DESC;
+SELECT c.city_id, c.city FROM
+city c
+WHERE city_id NOT IN (SELECT c.city_id FROM city c
+			JOIN address a ON c.city_id = a.city_id);
